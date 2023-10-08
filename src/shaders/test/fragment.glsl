@@ -12,5 +12,4 @@ void main() {
     // gl_FragColor is the color of the particular pixel
     // 4th value is the alpha, a, on rgba
     gl_FragColor = textureColor;
-
 }
