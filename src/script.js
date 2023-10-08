@@ -38,11 +38,12 @@ for(let i = 0; i < count; i++) {
 geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1))
 
 // Material
-const material = new THREE.RawShaderMaterial({
+const material = new THREE.ShaderMaterial({
     vertexShader: testVertexShader,
     fragmentShader: testFragmentShader,
     uniforms: {
         uFrequency: { value: new THREE.Vector2(10, 5)},
+        uAmplitude: { value: new THREE.Vector2(0.1, 0.03)},
         uTime: { value: 0 },
         uColor: { value: new THREE.Color('cyan') },
         uTexture: { value: flagTexture }
@@ -51,6 +52,8 @@ const material = new THREE.RawShaderMaterial({
 
 gui.add(material.uniforms.uFrequency.value, 'x').min(0).max(20).step(0.01).name('frequencyX')
 gui.add(material.uniforms.uFrequency.value, 'y').min(0).max(20).step(0.01).name('frequencyY')
+gui.add(material.uniforms.uAmplitude.value, 'x').min(0).max(0.2).step(0.001).name('amplitudeX')
+gui.add(material.uniforms.uAmplitude.value, 'y').min(0).max(0.2).step(0.001).name('amplitudeY')
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material)
