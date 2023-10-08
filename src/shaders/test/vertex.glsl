@@ -1,13 +1,11 @@
 uniform mat4 projectionMatrix; // transform coords into the clip space 
 uniform mat4 viewMatrix; // transformations relative to the camera
 uniform mat4 modelMatrix; // transformations relative to the Mesh
+uniform vec2 uFrequency; // custom uniform
+uniform float uTime; // custom uniform
 
 // retrieving value from our THREE geometry
 attribute vec3 position;
-attribute float aRandom;
-
-// info to be sent to the fragmentShader
-varying float vRandom;
 
 void main() {
     // gl_Position contains the position of the Vertex on the screen
@@ -17,12 +15,12 @@ void main() {
     // gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
 
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-    // modelPosition.z += sin(modelPosition.x * 10.0) * 0.1;
-    modelPosition.z += aRandom * 0.1;
+    modelPosition.z += sin(modelPosition.x * uFrequency.x - uTime) * 0.1;
+    modelPosition.z += sin(modelPosition.y * uFrequency.y - uTime) * 0.1;
     
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
     gl_Position = projectedPosition;
 
-    vRandom = aRandom;
+    // vRandom = aRandom;
 }
