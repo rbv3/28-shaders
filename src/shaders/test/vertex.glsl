@@ -6,6 +6,9 @@ uniform float uTime; // custom uniform
 
 // retrieving value from our THREE geometry
 attribute vec3 position;
+attribute vec2 uv;
+
+varying vec2 vUv;
 
 void main() {
     // gl_Position contains the position of the Vertex on the screen
@@ -23,4 +26,5 @@ void main() {
     gl_Position = projectedPosition;
 
     // vRandom = aRandom;
+    vUv = uv;
 }
